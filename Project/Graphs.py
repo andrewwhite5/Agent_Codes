@@ -6,7 +6,8 @@ from decimal import Decimal
 from Agent_Unavailable_Time import break_df, full_un, df, snapshot, summary, agentlist
 
 '''
-Visualize Break Time
+Break Time
+Visualize
 '''
 # Create dataframe of agents who are over break compliance
 over_comp = break_df.where(break_df['Percent'] > 1.08)

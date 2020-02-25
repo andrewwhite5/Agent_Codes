@@ -3,7 +3,7 @@ import datetime as dt
 import matplotlib.pyplot as plt
 from decimal import Decimal
 
-from Agent_Unavailable_Time import break_df, full_un, df, snapshot, summary, agentlist
+from Agent_Unavailable_Time import df, snapshot, summary, agentlist, break_df
 
 '''
 Break Time

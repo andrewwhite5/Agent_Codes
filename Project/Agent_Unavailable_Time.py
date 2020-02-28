@@ -132,15 +132,6 @@ break_df = break_df.drop(columns=['Team Name (ID)', 'Duration in Seconds'])
 # Reorder columns
 break_df = break_df[['Agent Name', 'Login Time', 'Duration', 'Percent']]
 
-'''
-Export for Business Desk
-'''
-# Last name first
-break_df = break_df.sort_values('Agent Name', ascending=True)
-
-# Export
-break_df.to_excel(r'C:\Users\awhite_c\Downloads\Break Time (insert date).xlsx')
-
 
 '''
 Unavailable Time -- "Case Work", "Technical Difficulties", and "Unavailable"
@@ -226,11 +217,3 @@ full_un = full_un[full_un['Team Name (ID)'] == 'Here Navigation (205587)']
 full_un = full_un.drop(columns={'Code', 'Duration', 'Unavailable in Seconds',
                                 'Tech Diff in Seconds', 'Case Work in Seconds',
                                 'Team Name (ID)'})
-
-# Sort by Agent Name
-full_un = full_un.sort_values('Agent Name', ascending=True)
-
-'''
-Export for Business Desk
-'''
-export_excel = full_un.to_excel(r'C:\Users\awhite_c\Downloads\Unavailable Time (insert date).xlsx')

@@ -2,6 +2,7 @@ import pandas as pd
 import datetime as dt
 import matplotlib.pyplot as plt
 from decimal import Decimal
+import numpy as np
 
 from Agent_Unavailable_Time import df, snapshot, summary, agentlist, break_df
 
@@ -12,7 +13,6 @@ Visualize
 # Create dataframe of agents who are over break compliance
 over_comp = break_df.where(break_df['Percent'] > 1.08)
 over_comp = over_comp.dropna()
-over_comp['Percent'] = over_comp['Percent']*100
 over_comp = over_comp.sort_values('Percent', ascending=False)
 print('\nNumber of agents who are over break compliance:', len(over_comp))
 print(over_comp)
@@ -99,14 +99,13 @@ case_work['Agent Name'] = case_work['Agent Name'].str.replace(
 case_work['Percent'] = case_work['Percent'] * 100
 
 # Limit Percent to 4 decimal places
-case_work['Percent'] = round(case_work['Percent'].astype(float),1)
+case_work['Percent'] = round(case_work['Percent'].astype(float),5)
 
-# Rename Login Time
-case_work = case_work.rename(
-    columns={'Login Time': 'Total Time Logged In'})
+# Drop unncessary columns
+case_work = case_work.drop(columns=['Team Name (ID)', 'Duration in Seconds'])
 
-# Drop Team Name column
-case_work = case_work.drop(columns='Team Name (ID)')
+# Reorder columns
+case_work = case_work[['Agent Name', 'Login Time', 'Duration', 'Percent']]
 
 '''
 Visualize Case Work
@@ -174,7 +173,11 @@ concerning_AHT = pd.concat([high_AHT, low_AHT])
 concerning_AHT = concerning_AHT[
     concerning_AHT['Inbound AHT'] != pd.Timedelta('0 min')]
 
-#
+# Rmemove unneccesary columns
+concerning_AHT = concerning_AHT.drop(columns=['Available Time',
+                                              'Unavailable Time','Login Time'])
+
+# Print out dataframe
 concerning_AHT = concerning_AHT.sort_values('Inbound AHT', ascending=True)
 print('\nAgents with potentially concerning average handle times:',
     len(concerning_AHT))
@@ -189,3 +192,67 @@ summary['Working Rate'] = summary['Working Rate'].str.strip('%').astype(float)
 raw_mean = Decimal(summary['Working Rate'].mean())
 avg_work_rt = round(raw_mean,2)
 print(f'\nAverage Working Rate: {avg_work_rt}%')
+
+
+'''
+Emails
+'''
+# Read in dataframe
+emails = pd.read_excel(r'C:\Users\awhite_c\Downloads\SF Email Report.xlsx')
+
+# Filter out phone cases (etc.)
+emails = emails[emails['Case Origin'] == 'Email']
+
+# Define function to filter on strings
+def Drop_cases(df, column, string):
+    new_index = df[column.str.contains(string)].index
+    df.drop(new_index, inplace=True)
+
+# Filter out EMEA and SUP cases
+Drop_cases(emails, emails['Queue Name'], 'EMEA')
+Drop_cases(emails, emails['Queue Name'], 'SUPERVISOR')
+
+# Find average age of emails
+avg_email = np.mean(emails['Age (Hours)'])
+print('')
+print(f'Average email age (hours): {avg_email}')
+
+# Look at number of emails in queue
+print(f'Number of emails in queue: {len(emails)}')
+print('')
+
+
+'''
+Additional Data
+'''
+
+# Specify hours vs minutes
+over_comp = over_comp.rename(
+    columns={'Login Time': 'Login Time (hours)',
+             'Duration': 'Duration (hours)'})
+
+high_cw = high_cw.rename(
+    columns={'Login Time': 'Login Time (hours)',
+             'Duration': 'Duration (hours)'})
+
+concerning_AHT = concerning_AHT.rename(
+    columns={'Inbound AHT': 'Inbound AHT (minutes)',
+             'Outbound AHT': 'Outbound AHT (minutes)'})
+
+# Break Compliance
+over_comp = over_comp.sort_values('Percent', ascending=False)
+over_comp.to_excel(r'C:\Users\awhite_c\Desktop\Over Comp.xlsx')
+
+# Case Work
+high_cw = high_cw.sort_values('Percent', ascending=False)
+high_cw['Login Time (hours)'] = high_cw['Login Time (hours)']*24
+high_cw['Duration (hours)'] = high_cw['Duration (hours)']*24
+high_cw['Percent'] = high_cw['Percent']/100
+high_cw.to_excel(r'C:\Users\awhite_c\Desktop\Case Work.xlsx')
+
+# Average Handle Time
+concerning_AHT['Inbound AHT (minutes)'] = concerning_AHT[
+                                          'Inbound AHT (minutes)']*1440
+concerning_AHT['Outbound AHT (minutes)'] = concerning_AHT[
+                                          'Outbound AHT (minutes)']*1440
+concerning_AHT.to_excel(r'C:\Users\awhite_c\Desktop\AHT.xlsx')

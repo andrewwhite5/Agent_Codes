@@ -51,8 +51,8 @@ def boundary_maker(series):
     return new_list
 
 # Drop all rows that are not in first section of dataframe
-nullname_list = boundary_maker(nullname)
-needed_rows = len(nullname_list)
+non_null_list = boundary_maker(nullname)
+needed_rows = len(non_null_list)
 snapshot = snapshot[0:needed_rows]
 
 '''
@@ -132,6 +132,10 @@ break_df = break_df.drop(columns=['Team Name (ID)', 'Duration in Seconds'])
 # Reorder columns
 break_df = break_df[['Agent Name', 'Login Time', 'Duration', 'Percent']]
 
+# Change time from days to hours
+break_df['Login Time'] = break_df['Login Time']*24
+break_df['Duration'] = break_df['Duration']*24
+
 
 '''
 Unavailable Time -- "Case Work", "Technical Difficulties", and "Unavailable"
@@ -189,6 +193,12 @@ full_un['Unavailable %'] = full_un['Unavailable']/full_un['Login Time']
 full_un['Tech Diff %'] = full_un['Tech Diff']/full_un['Login Time']
 full_un['Case Work %'] = full_un['Case Work']/full_un['Login Time']
 full_un['Total Percent'] = full_un['Total Unavailable']/full_un['Login Time']
+
+# Change time from days to hours
+full_un['Login Time'] = full_un['Login Time']*24
+full_un['Unavailable'] = full_un['Unavailable']*24
+full_un['Tech Diff'] = full_un['Tech Diff']*24
+full_un['Case Work'] = full_un['Case Work']*24
 
 '''
 Final Cleaning

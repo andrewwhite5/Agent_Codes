@@ -3,8 +3,12 @@ import datetime as dt
 import matplotlib.pyplot as plt
 from decimal import Decimal
 import numpy as np
+import os
 
 from Agent_Unavailable_Time import df, snapshot, summary, agentlist, break_df
+
+# Set username from .env
+username = os.environ['username']
 
 '''
 Break Time
@@ -201,7 +205,7 @@ print(f'\nAverage Working Rate: {avg_work_rt}%')
 Emails
 '''
 # Read in dataframe
-emails = pd.read_excel(r'/Users/andrew/Downloads/SF Email Report.xlsx')
+emails = pd.read_excel(fr'\Users\{username}\Downloads\SF Email Report.xlsx')
 
 # Filter out phone cases (etc.)
 emails = emails[emails['Case Origin'] == 'Email']
@@ -245,18 +249,18 @@ concerning_AHT = concerning_AHT.rename(
 # Break Compliance
 over_comp = over_comp.sort_values('Percent', ascending=False)
 over_comp['Percent'] = over_comp['Percent']/100
-over_comp.to_excel(r'\Users\awhite_c\Downloads\Over Comp.xlsx')
+over_comp.to_excel(fr'\Users\{username}\Desktop\Over Comp.xlsx')
 
 # Case Work
 high_cw = high_cw.sort_values('Percent', ascending=False)
 high_cw['Login Time (hours)'] = high_cw['Login Time (hours)']*24
 high_cw['Duration (hours)'] = high_cw['Duration (hours)']*24
 high_cw['Percent'] = high_cw['Percent']/100
-high_cw.to_excel(r'\Users\awhite_c\Desktop\Case Work.xlsx')
+high_cw.to_excel(fr'\Users\{username}\Desktop\Case Work.xlsx')
 
 # Average Handle Time
 concerning_AHT['Inbound AHT (minutes)'] = concerning_AHT[
                                           'Inbound AHT (minutes)']*1440
 concerning_AHT['Outbound AHT (minutes)'] = concerning_AHT[
                                           'Outbound AHT (minutes)']*1440
-concerning_AHT.to_excel(r'\Users\awhite_c\Desktop\AHT.xlsx')
+concerning_AHT.to_excel(fr'\Users\{username}\Desktop\AHT.xlsx')

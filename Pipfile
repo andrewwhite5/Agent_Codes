@@ -9,7 +9,7 @@ verify_ssl = true
 pandas = "*"
 matplotlib = "*"
 numpy = "*"
-datetime = "*"
+DateTime = "*"
 
 [requires]
 python_version = "3.7"

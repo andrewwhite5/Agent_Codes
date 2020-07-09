@@ -8,7 +8,7 @@ Import inContact spreadsheets
 # Read in Agent Unavailable Time
 df_col_names = ['Agent Name', 'Code', 'Code Type', 'Duration',
                 'Duration in Seconds', 'Percent']
-df = pd.read_excel(r'C:\Users\awhite_c\Downloads\IC_Reports_AgentUnavailableTime.xlsx',
+df = pd.read_excel(r'\Users\awhite_c\Downloads\IC_Reports_AgentUnavailableTime.xlsx',
                    names=df_col_names)
 
 # Read in Agent Summary
@@ -17,13 +17,13 @@ summary_col_names = ['Agent Name', 'Handled (Inbound)',
                      'Avg Talk Time (Outbound)', 'Available Time',
                      'Total Unavailable Time', 'Refused', 'Login Time',
                      'Working Rate', 'Occupancy']
-summary = pd.read_excel(r'C:\Users\awhite_c\Downloads\IC_Reports_AgentSummary.xlsx',
+summary = pd.read_excel(r'\Users\awhite_c\Downloads\IC_Reports_AgentSummary.xlsx',
                         names=summary_col_names)
 
 # Read in Agent List
 agentlist_col_names = ['Team Name (ID)', 'Agent Name', 'Last Login',
                        'Skill Count']
-agentlist = pd.read_excel(r'C:\Users\awhite_c\Downloads\IC_Reports_AgentList.xlsx',
+agentlist = pd.read_excel(r'\Users\awhite_c\Downloads\IC_Reports_AgentList.xlsx',
                           names=agentlist_col_names)
 
 # Read in Supervisor Snapshot
@@ -32,7 +32,7 @@ snapshot_col_names = ['Agent Name', 'Inbound Handled', 'Inbound AHT',
                        'Unavailable Time', 'Refused', 'Login Time',
                        'Occupancy']
 needed_cols = [0, 2, 6, 8, 9, 13, 14, 21, 23, 29]
-snapshot = pd.read_excel(r'C:\Users\awhite_c\Downloads\Supervisor Snapshot.xlsx',
+snapshot = pd.read_excel(r'\Users\awhite_c\Downloads\Supervisor Snapshot.xlsx',
                          names=snapshot_col_names, skiprows=11,
                          usecols=needed_cols)
 
@@ -184,6 +184,12 @@ full_un['Tech Diff'] = pd.to_timedelta(full_un['Tech Diff in Seconds'],
 full_un['Case Work'] = pd.to_timedelta(full_un['Case Work in Seconds'],
                                       unit='Seconds')
 
+# Change time from days to hours
+full_un['Login Time'] = full_un['Login Time']*24
+full_un['Unavailable'] = full_un['Unavailable']*24
+full_un['Tech Diff'] = full_un['Tech Diff']*24
+full_un['Case Work'] = full_un['Case Work']*24
+
 # Create new column for Total Unavailable Time
 #  - Specifically: Case Work, Technical Difficulties, and Unavailable
 full_un['Total Unavailable'] = full_un['Unavailable'] + full_un['Tech Diff'] + full_un['Case Work']
@@ -193,12 +199,6 @@ full_un['Unavailable %'] = full_un['Unavailable']/full_un['Login Time']
 full_un['Tech Diff %'] = full_un['Tech Diff']/full_un['Login Time']
 full_un['Case Work %'] = full_un['Case Work']/full_un['Login Time']
 full_un['Total Percent'] = full_un['Total Unavailable']/full_un['Login Time']
-
-# Change time from days to hours
-full_un['Login Time'] = full_un['Login Time']*24
-full_un['Unavailable'] = full_un['Unavailable']*24
-full_un['Tech Diff'] = full_un['Tech Diff']*24
-full_un['Case Work'] = full_un['Case Work']*24
 
 '''
 Final Cleaning

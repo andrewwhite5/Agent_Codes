@@ -17,6 +17,9 @@ over_comp = over_comp.sort_values('Percent', ascending=False)
 print('\nNumber of agents who are over break compliance:', len(over_comp))
 print(over_comp)
 
+# Change percentage to whole number (visual-friendly for graph)
+over_comp['Percent'] = over_comp['Percent']*100
+
 # Sort values differently for graph
 over_comp = over_comp.sort_values('Percent', ascending=True)
 
@@ -95,9 +98,6 @@ case_work['Agent Name'] = case_work['Agent Name'].str.replace(
     '4', '').str.replace('5', '').str.replace('6', '').str.replace(
     '7', '').str.replace('8', '').str.replace('9', '')
 
-# Change percent to whole number
-case_work['Percent'] = case_work['Percent'] * 100
-
 # Limit Percent to 4 decimal places
 case_work['Percent'] = round(case_work['Percent'].astype(float),5)
 
@@ -111,12 +111,15 @@ case_work = case_work[['Agent Name', 'Login Time', 'Duration', 'Percent']]
 Visualize Case Work
 '''
 # Create dataframe of agents who spent over 10% of their time in Case Work
-high_cw = case_work.where(case_work['Percent'] >= 10)
+high_cw = case_work.where(case_work['Percent'] >= .1)
 high_cw = high_cw.dropna()
 high_cw = high_cw.sort_values('Percent', ascending=False)
 print('\nNumber of agents who spend more than 10% of their time in Case Work:',
       len(high_cw))
 print(high_cw)
+
+# Change percentage to whole number (visual-friendly for graph)
+high_cw['Percent'] = high_cw['Percent']*100
 
 # Sort values differently for graph
 high_cw = high_cw.sort_values('Percent', ascending=True)
@@ -198,7 +201,7 @@ print(f'\nAverage Working Rate: {avg_work_rt}%')
 Emails
 '''
 # Read in dataframe
-emails = pd.read_excel(r'C:\Users\awhite_c\Downloads\SF Email Report.xlsx')
+emails = pd.read_excel(r'/Users/andrew/Downloads/SF Email Report.xlsx')
 
 # Filter out phone cases (etc.)
 emails = emails[emails['Case Origin'] == 'Email']
@@ -241,18 +244,19 @@ concerning_AHT = concerning_AHT.rename(
 
 # Break Compliance
 over_comp = over_comp.sort_values('Percent', ascending=False)
-over_comp.to_excel(r'C:\Users\awhite_c\Desktop\Over Comp.xlsx')
+over_comp['Percent'] = over_comp['Percent']/100
+over_comp.to_excel(r'\Users\awhite_c\Downloads\Over Comp.xlsx')
 
 # Case Work
 high_cw = high_cw.sort_values('Percent', ascending=False)
 high_cw['Login Time (hours)'] = high_cw['Login Time (hours)']*24
 high_cw['Duration (hours)'] = high_cw['Duration (hours)']*24
 high_cw['Percent'] = high_cw['Percent']/100
-high_cw.to_excel(r'C:\Users\awhite_c\Desktop\Case Work.xlsx')
+high_cw.to_excel(r'\Users\awhite_c\Desktop\Case Work.xlsx')
 
 # Average Handle Time
 concerning_AHT['Inbound AHT (minutes)'] = concerning_AHT[
                                           'Inbound AHT (minutes)']*1440
 concerning_AHT['Outbound AHT (minutes)'] = concerning_AHT[
                                           'Outbound AHT (minutes)']*1440
-concerning_AHT.to_excel(r'C:\Users\awhite_c\Desktop\AHT.xlsx')
+concerning_AHT.to_excel(r'\Users\awhite_c\Desktop\AHT.xlsx')

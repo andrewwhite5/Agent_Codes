@@ -11,7 +11,7 @@ Export Break Time for Business Desk
 break_df = break_df.sort_values('Agent Name', ascending=True)
 
 # Export
-break_df.to_excel(r'C:\Users\awhite_c\Downloads\Break Time (insert date).xlsx')
+break_df.to_excel(r'\Users\awhite_c\Downloads\Break Time (insert date).xlsx')
 
 
 '''
@@ -21,4 +21,4 @@ Export for Business Desk
 full_un = full_un.sort_values('Agent Name', ascending=True)
 
 # Export
-full_un.to_excel(r'C:\Users\awhite_c\Downloads\Unavailable Time (insert date).xlsx')
+full_un.to_excel(r'\Users\awhite_c\Downloads\Unavailable Time (insert date).xlsx')

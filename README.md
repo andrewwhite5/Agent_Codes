@@ -20,11 +20,10 @@ Set username variable in .env
 ### Mac-to-Windows (and vice versa) Issues
 You may have to change all the file path strings due to the difference in how
 Macs and Windows read file paths.
+* Mac: Need to use /
+* Windows: Need to use \
 
-Mac: Need to use /
-Windows: Need to use \
-
-*Locations:*
+**Locations:**
 * Beginning of Agent_Unavailable_time.py (4)
 * End of Graphs.py (3)
 * End of Export.py (2)

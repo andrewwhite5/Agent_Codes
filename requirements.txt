@@ -2,3 +2,5 @@ pandas
 matplotlib
 numpy
 datetime
+xlrd
+openpyxl

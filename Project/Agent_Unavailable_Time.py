@@ -4,7 +4,7 @@ from decimal import Decimal
 import os
 
 # Set username from .env
-username = os.environ['username']
+username = os.getenv('username')
 
 '''
 Import inContact spreadsheets
@@ -12,7 +12,7 @@ Import inContact spreadsheets
 # Read in Agent Unavailable Time
 df_col_names = ['Agent Name', 'Code', 'Code Type', 'Duration',
                 'Duration in Seconds', 'Percent']
-df = pd.read_excel(fr'\Users\{username}\Downloads\IC_Reports_AgentUnavailableTime.xlsx',
+df = pd.read_excel(fr'/Users/{username}/Downloads/IC_Reports_AgentUnavailableTime.xlsx',
                    names=df_col_names)
 
 # Read in Agent Summary
@@ -21,13 +21,13 @@ summary_col_names = ['Agent Name', 'Handled (Inbound)',
                      'Avg Talk Time (Outbound)', 'Available Time',
                      'Total Unavailable Time', 'Refused', 'Login Time',
                      'Working Rate', 'Occupancy']
-summary = pd.read_excel(fr'\Users\{username}\Downloads\IC_Reports_AgentSummary.xlsx',
+summary = pd.read_excel(fr'/Users/{username}/Downloads/IC_Reports_AgentSummary.xlsx',
                         names=summary_col_names)
 
 # Read in Agent List
 agentlist_col_names = ['Team Name (ID)', 'Agent Name', 'Last Login',
                        'Skill Count']
-agentlist = pd.read_excel(fr'\Users\{username}\Downloads\IC_Reports_AgentList.xlsx',
+agentlist = pd.read_excel(fr'/Users/{username}/Downloads/IC_Reports_AgentList.xlsx',
                           names=agentlist_col_names)
 
 # Read in Supervisor Snapshot
@@ -36,7 +36,7 @@ snapshot_col_names = ['Agent Name', 'Inbound Handled', 'Inbound AHT',
                        'Unavailable Time', 'Refused', 'Login Time',
                        'Occupancy']
 needed_cols = [0, 2, 6, 8, 9, 13, 14, 21, 23, 29]
-snapshot = pd.read_excel(fr'\Users\{username}\Downloads\Supervisor Snapshot.xlsx',
+snapshot = pd.read_excel(fr'/Users/{username}/Downloads/Supervisor Snapshot.xlsx',
                          names=snapshot_col_names, skiprows=11,
                          usecols=needed_cols)
 

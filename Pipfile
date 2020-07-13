@@ -10,6 +10,8 @@ pandas = "*"
 matplotlib = "*"
 numpy = "*"
 DateTime = "*"
+xlrd = "*"
+openpyxl = "*"
 
 [requires]
 python_version = "3.7"

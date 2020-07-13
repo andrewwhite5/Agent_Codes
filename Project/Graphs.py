@@ -8,7 +8,7 @@ import os
 from Agent_Unavailable_Time import df, snapshot, summary, agentlist, break_df
 
 # Set username from .env
-username = os.environ['username']
+username = os.getenv('username')
 
 '''
 Break Time
@@ -202,34 +202,6 @@ print(f'\nAverage Working Rate: {avg_work_rt}%')
 
 
 '''
-Emails
-'''
-# Read in dataframe
-emails = pd.read_excel(fr'\Users\{username}\Downloads\SF Email Report.xlsx')
-
-# Filter out phone cases (etc.)
-emails = emails[emails['Case Origin'] == 'Email']
-
-# Define function to filter on strings
-def Drop_cases(df, column, string):
-    new_index = df[column.str.contains(string)].index
-    df.drop(new_index, inplace=True)
-
-# Filter out EMEA and SUP cases
-Drop_cases(emails, emails['Queue Name'], 'EMEA')
-Drop_cases(emails, emails['Queue Name'], 'SUPERVISOR')
-
-# Find average age of emails
-avg_email = np.mean(emails['Age (Hours)'])
-print('')
-print(f'Average email age (hours): {avg_email}')
-
-# Look at number of emails in queue
-print(f'Number of emails in queue: {len(emails)}')
-print('')
-
-
-'''
 Additional Data
 '''
 
@@ -249,18 +221,18 @@ concerning_AHT = concerning_AHT.rename(
 # Break Compliance
 over_comp = over_comp.sort_values('Percent', ascending=False)
 over_comp['Percent'] = over_comp['Percent']/100
-over_comp.to_excel(fr'\Users\{username}\Desktop\Over Comp.xlsx')
+over_comp.to_excel(fr'/Users/{username}/Desktop/Over Comp.xlsx')
 
 # Case Work
 high_cw = high_cw.sort_values('Percent', ascending=False)
 high_cw['Login Time (hours)'] = high_cw['Login Time (hours)']*24
 high_cw['Duration (hours)'] = high_cw['Duration (hours)']*24
 high_cw['Percent'] = high_cw['Percent']/100
-high_cw.to_excel(fr'\Users\{username}\Desktop\Case Work.xlsx')
+high_cw.to_excel(fr'/Users/{username}/Desktop/Case Work.xlsx')
 
 # Average Handle Time
 concerning_AHT['Inbound AHT (minutes)'] = concerning_AHT[
                                           'Inbound AHT (minutes)']*1440
 concerning_AHT['Outbound AHT (minutes)'] = concerning_AHT[
                                           'Outbound AHT (minutes)']*1440
-concerning_AHT.to_excel(fr'\Users\{username}\Desktop\AHT.xlsx')
+concerning_AHT.to_excel(fr'/Users/{username}/Desktop/AHT.xlsx')

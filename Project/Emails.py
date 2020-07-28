@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+import os
 
 # Set username from .env
 username = os.getenv('username')
@@ -7,7 +9,7 @@ username = os.getenv('username')
 Emails
 '''
 # Read in dataframe
-emails = pd.read_excel(fr'/Users/{username}/Downloads/SF Email Report.xlsx')
+emails = pd.read_csv(fr'/Users/{username}/Downloads/SF Email Report.csv')
 
 # Filter out phone cases (etc.)
 emails = emails[emails['Case Origin'] == 'Email']

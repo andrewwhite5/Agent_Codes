@@ -55,8 +55,9 @@ plt.title(f'Agents Over Break Compliance (108%)',
 # Change the style of the axis spines
 ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
-ax.spines['left'].set_smart_bounds(True)
-ax.spines['bottom'].set_smart_bounds(True)
+ax.spines['left'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
+# ax.spines['bottom'].set_bounds(0, over_comp['Percent'].max())
 plt.show()
 
 
@@ -156,8 +157,8 @@ plt.title('Agents with Case Work\nabove 10% of Total Time',
 # Change the style of the axis spines
 ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
-ax.spines['left'].set_smart_bounds(True)
-ax.spines['bottom'].set_smart_bounds(True)
+ax.spines['left'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
 plt.show()
 
 

@@ -193,13 +193,25 @@ print(concerning_AHT)
 
 
 '''
+Team Average Handle Time
+'''
+# Inbound contacts
+inbound_mean = snapshot['Inbound AHT'].mean()
+print(f'\nTeam Inbound AHT (minutes): {inbound_mean}')
+
+# Outbound contacts
+outbound_mean = snapshot['Outbound AHT'].mean()
+print(f'Team Outbound AHT (minutes): {outbound_mean}')
+
+
+'''
 Average Working Rate
 '''
 # Convert Working Rate to float and calcualate mean (the goal is at least 80%)
 summary['Working Rate'] = summary['Working Rate'].str.strip('%').astype(float)
 raw_mean = Decimal(summary['Working Rate'].mean())
 avg_work_rt = round(raw_mean,2)
-print(f'\nAverage Working Rate: {avg_work_rt}%')
+print(f'\nAverage Working Rate: {avg_work_rt}%\n')
 
 
 '''

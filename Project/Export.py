@@ -26,3 +26,5 @@ full_un = full_un.sort_values('Agent Name', ascending=True)
 
 # Export
 full_un.to_excel(fr'/Users/{username}/Downloads/Unavailable Time (insert date).xlsx')
+
+print('Export complete')

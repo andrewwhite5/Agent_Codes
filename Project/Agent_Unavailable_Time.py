@@ -3,7 +3,7 @@ import datetime as dt
 from decimal import Decimal
 import os
 
-# Set username from .env
+# Get username from .env
 username = os.getenv('username')
 
 '''
@@ -122,13 +122,13 @@ break_df = break_df.sort_values('Duration', ascending=False)
 break_time = (.5/8)
 break_compliance_basic = 1.08
 raw_break_compliance = break_time + (break_time*.08)
-print(f'Break time: {break_time}')
-print(f'Raw Break compliance: {raw_break_compliance}')
+# print(f'Break time: {break_time}')
+# print(f'Raw Break compliance: {raw_break_compliance}')
 
 # Change percent to more understandable number
 mult_num = break_compliance_basic/raw_break_compliance
 break_df['Percent'] = break_df['Percent']*mult_num
-print(f'Break compliance: {break_compliance_basic} (108%)')
+# print(f'Break compliance: {break_compliance_basic} (108%)')
 
 # Drop Team Name column
 break_df = break_df.drop(columns=['Team Name (ID)', 'Duration in Seconds'])

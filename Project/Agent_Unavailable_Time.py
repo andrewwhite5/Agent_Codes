@@ -1,10 +1,12 @@
 import pandas as pd
 import datetime as dt
 from decimal import Decimal
-import os
+from decouple import config
+# import os
 
 # Get username from .env
-username = os.getenv('username')
+username = config('username')
+# username = os.getenv('username')
 
 '''
 Import inContact spreadsheets
@@ -110,10 +112,12 @@ break_df.drop(paper_agents_index, inplace=True)
 
 # Clean agent names
 break_df['Agent Name'] = break_df['Agent Name'].str.replace(
-    '(', '').str.replace(')', '').str.replace('0', '').str.replace(
-    '1', '').str.replace('2', '').str.replace('3', '').str.replace(
-    '4', '').str.replace('5', '').str.replace('6', '').str.replace(
-    '7', '').str.replace('8', '').str.replace('9', '')
+    '(', '', regex=False).str.replace(')', '', regex=False).str.replace(
+    '0', '', regex=False).str.replace('1', '', regex=False).str.replace(
+    '2', '', regex=False).str.replace('3', '', regex=False).str.replace(
+    '4', '', regex=False).str.replace('5', '', regex=False).str.replace(
+    '6', '', regex=False).str.replace('7', '', regex=False).str.replace(
+    '8', '', regex=False).str.replace('9', '', regex=False)
 
 # Sort by highest Case Work duration
 break_df = break_df.sort_values('Duration', ascending=False)
@@ -214,10 +218,12 @@ full_un.drop(paper_agents_index, inplace=True)
 
 # Clean agent names
 full_un['Agent Name'] = full_un['Agent Name'].str.replace(
-    '(', '').str.replace(')', '').str.replace('0', '').str.replace(
-    '1', '').str.replace('2', '').str.replace('3', '').str.replace(
-    '4', '').str.replace('5', '').str.replace('6', '').str.replace(
-    '7', '').str.replace('8', '').str.replace('9', '')
+    '(', '', regex=False).str.replace(')', '', regex=False).str.replace(
+    '0', '', regex=False).str.replace('1', '', regex=False).str.replace(
+    '2', '', regex=False).str.replace('3', '', regex=False).str.replace(
+    '4', '', regex=False).str.replace('5', '', regex=False).str.replace(
+    '6', '', regex=False).str.replace('7', '', regex=False).str.replace(
+    '8', '', regex=False).str.replace('9', '', regex=False)
 
 # Change percent to whole number
 full_un['Unavailable %'] = full_un['Unavailable %']

@@ -3,12 +3,12 @@ import datetime as dt
 import matplotlib.pyplot as plt
 from decimal import Decimal
 import numpy as np
-import os
+from decouple import config
 
 from Agent_Unavailable_Time import df, snapshot, summary, agentlist, break_df
 
 # Set username from .env
-username = os.getenv('username')
+username = config('username')
 
 '''
 Break Time

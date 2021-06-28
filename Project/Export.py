@@ -1,12 +1,12 @@
 import pandas as pd
 import datetime as dt
 from decimal import Decimal
-import os
+from decouple import config
 
 from Agent_Unavailable_Time import break_df, full_un
 
 # Set username from .env
-username = os.getenv('username')
+username = config('username')
 
 '''
 Export Break Time for Business Desk

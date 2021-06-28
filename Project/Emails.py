@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
-import os
+from decouple import config
 
 # Set username from .env
-username = os.getenv('username')
+username = config('username')
 
 '''
 Emails

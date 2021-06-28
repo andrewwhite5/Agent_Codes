@@ -98,10 +98,12 @@ case_work.drop(paper_agents_index, inplace=True)
 
 # Clean agent names
 case_work['Agent Name'] = case_work['Agent Name'].str.replace(
-    '(', '').str.replace(')', '').str.replace('0', '').str.replace(
-    '1', '').str.replace('2', '').str.replace('3', '').str.replace(
-    '4', '').str.replace('5', '').str.replace('6', '').str.replace(
-    '7', '').str.replace('8', '').str.replace('9', '')
+    '(', '', regex=False).str.replace(')', '', regex=False).str.replace(
+    '0', '', regex=False).str.replace('1', '', regex=False).str.replace(
+    '2', '', regex=False).str.replace('3', '', regex=False).str.replace(
+    '4', '', regex=False).str.replace('5', '', regex=False).str.replace(
+    '6', '', regex=False).str.replace('7', '', regex=False).str.replace(
+    '8', '', regex=False).str.replace('9', '', regex=False)
 
 # Limit Percent to 4 decimal places
 case_work['Percent'] = round(case_work['Percent'].astype(float),5)

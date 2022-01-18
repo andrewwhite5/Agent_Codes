@@ -10,6 +10,16 @@ from Agent_Unavailable_Time import df, snapshot, summary, agentlist, break_df
 # Set username from .env
 username = config('username')
 
+##########################
+########  DELETE
+##########################
+print('Datatype for Percent column:')
+print(type(break_df['Percent'][0]))
+##########################
+
+print('break_df view:')
+print(break_df)
+
 '''
 Break Time
 Visualize

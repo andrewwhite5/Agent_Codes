@@ -11,8 +11,8 @@ matplotlib = "*"
 numpy = "*"
 xlrd = "*"
 openpyxl = "*"
-DateTime = "*"
 python-decouple = "*"
+DateTime = "*"
 
 [requires]
 python_version = "3.7"
